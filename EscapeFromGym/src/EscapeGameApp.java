@@ -15,10 +15,14 @@ public class EscapeGameApp extends JFrame {
 
         // 仮テキスト画面
         JPanel bottomPanel = new JPanel();
-        bottomPanel.setPreferredSize(new Dimension(800, 100));
+        bottomPanel.setPreferredSize(new Dimension(500, 100));
         bottomPanel.setBackground(Color.DARK_GRAY);
-        bottomPanel.add(new JLabel("Message Window / Inventory"));
+        bottomPanel.add(new JLabel("Message Window"));
         add(bottomPanel, BorderLayout.SOUTH);
+
+        // 仮インベントリボタン
+        JButton inventoryButton = new JButton("Inventory");
+        add(inventoryButton, BorderLayout.NORTH);
     }
 
     public static void main(String[] args) {

@@ -12,7 +12,7 @@ public class MainViewPanel extends JPanel {
         sceneContainer = new JPanel(sceneLayout);
 
         sceneContainer.add(new ScenePanel("images/Scene/inclinebench.png", this), "InclineBenchScene");
-        sceneContainer.add(new ScenePanel("", this), "RIGHT");
+        sceneContainer.add(new ScenePanel(null, this), "RIGHT");
         sceneContainer.add(new ScenePanel("", this), "BACK");
         sceneContainer.add(new ScenePanel("", this), "LEFT");
 

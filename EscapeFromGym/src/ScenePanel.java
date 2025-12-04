@@ -3,16 +3,16 @@ import java.awt.*;
 
 public class ScenePanel extends JPanel {
     private Image backgroundImage;
-    private MainViewPanel parent;
+    private MainViewPanel mainViewPanel;
 
     /**
-     * ゲーム画面を更新する
+     * シーンを更新する
      * 
-     * @param imagePath 画像のパス
-     * @param parent    MainViewPanel
+     * @param imagePath     画像のパス
+     * @param mainViewPanel MainViewPanel
      */
-    public ScenePanel(String imagePath, MainViewPanel parent) {
-        this.parent = parent;
+    public ScenePanel(String imagePath, MainViewPanel mainViewPanel) {
+        this.mainViewPanel = mainViewPanel;
         this.setLayout(null); // 自由配置可能
         changeImage(imagePath);
         setupNavButtons();
@@ -22,8 +22,8 @@ public class ScenePanel extends JPanel {
         ArrowButton leftBtn = new ArrowButton(ArrowButton.LEFT);
         ArrowButton rightBtn = new ArrowButton(ArrowButton.RIGHT);
 
-        leftBtn.addActionListener(e -> parent.goPrevious());
-        rightBtn.addActionListener(e -> parent.goNext());
+        leftBtn.addActionListener(e -> mainViewPanel.goPrevious());
+        rightBtn.addActionListener(e -> mainViewPanel.goNext());
 
         add(leftBtn);
         add(rightBtn);
@@ -45,7 +45,12 @@ public class ScenePanel extends JPanel {
      * @param imagePath 画像のパス
      */
     public void changeImage(String imagePath) {
-        this.backgroundImage = new ImageIcon(imagePath).getImage();
+        ImageIcon icon = new ImageIcon(imagePath);
+        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
+            this.backgroundImage = null;
+        } else {
+            this.backgroundImage = icon.getImage();
+        }
         repaint();
     }
 
@@ -57,6 +62,7 @@ public class ScenePanel extends JPanel {
         } else {
             g.setColor(Color.DARK_GRAY);
             g.fillRect(0, 0, getWidth(), getHeight());
+            g.setColor(Color.WHITE);
             g.drawString("画像が見つかっていません", 50, 50);
         }
     }
