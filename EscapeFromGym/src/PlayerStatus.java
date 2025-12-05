@@ -32,4 +32,24 @@ public class PlayerStatus {
     public void setLegTrue() {
         this.leg = true;
     }
+
+    public boolean getShoulderVal() {
+        return this.shoulder;
+    }
+
+    public boolean getBackVal() {
+        return this.back;
+    }
+
+    public boolean getChestVal() {
+        return this.chest;
+    }
+
+    public boolean getArmVal() {
+        return this.arm;
+    }
+
+    public boolean getLegVal() {
+        return this.leg;
+    }
 }
