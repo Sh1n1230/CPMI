@@ -1,3 +1,8 @@
+/**
+ * playerのstatusを管理する。
+ * それぞれの部位の変数は2値で表され、0が弱い、1が強いとする。
+ */
+
 public class PlayerStatus {
     private boolean shoulder;
     private boolean back;
@@ -13,24 +18,24 @@ public class PlayerStatus {
         this.leg = false;
     }
 
-    public void setShoulderTrue() {
-        this.shoulder = true;
+    public void setShoulderVal(boolean shoulder) {
+        this.shoulder = shoulder;
     }
 
-    public void setBackTrue() {
-        this.back = true;
+    public void setBackVal(boolean back) {
+        this.back = back;
     }
 
-    public void setChestTrue() {
-        this.chest = true;
+    public void setChestVal(boolean chest) {
+        this.chest = chest;
     }
 
-    public void setArmTrue() {
-        this.arm = true;
+    public void setArmVal(boolean arm) {
+        this.arm = arm;
     }
 
-    public void setLegTrue() {
-        this.leg = true;
+    public void setLegVal(boolean leg) {
+        this.leg = leg;
     }
 
     public boolean getShoulderVal() {
