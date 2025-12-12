@@ -1,7 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
 
 public class EscapeGameApp extends JFrame {
+    private TextPanel textPanel;
+    private String[] m = { "あ", "い", "う" };
 
     public EscapeGameApp() {
         setTitle("脱出ゲーム Project");
@@ -9,16 +13,23 @@ public class EscapeGameApp extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
+        // 仮テキスト画面
+        textPanel = new TextPanel();
+        textPanel.setPreferredSize(new Dimension(500, 100));
+        textPanel.setBackground(Color.DARK_GRAY);
+        add(textPanel, BorderLayout.SOUTH);
+
         // ゲーム画面
         MainViewPanel mainViewPanel = new MainViewPanel();
         add(mainViewPanel, BorderLayout.CENTER);
-
-        // 仮テキスト画面
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setPreferredSize(new Dimension(500, 100));
-        bottomPanel.setBackground(Color.DARK_GRAY);
-        bottomPanel.add(new JLabel("Message Window"));
-        add(bottomPanel, BorderLayout.SOUTH);
+        mainViewPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (!textPanel.isVisible()) {
+                    textPanel.showMessage2(m);
+                }
+            }
+        });
 
         // 仮インベントリボタン
         JButton inventoryButton = new JButton("Inventory");
