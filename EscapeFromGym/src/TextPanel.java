@@ -8,9 +8,9 @@ import java.awt.event.ActionEvent;
 public class TextPanel extends JPanel {
 
     private JLabel textLabel;
-    private JLabel cornerLabel; 
-    private Timer cursorTimer; 
-    private boolean isCursorDown = false; 
+    private JLabel cornerLabel;
+    private Timer cursorTimer;
+    private boolean isCursorDown = false;
 
     private String[] currentMessages; // 現在表示中のメッセージ配列
     private int currentIndex; // 現在表示中のメッセージのインデックス
@@ -76,6 +76,7 @@ public class TextPanel extends JPanel {
     /**
      * 指定されたシナリオIDのメッセージを表示開始します。
      * EventText.java に定義された定数（例: EventText.SCENARIO_EVENT_ROOM）を使用します。
+     * 
      * @param scenarioIndex EventText.java に定義されたシナリオID
      */
     public void showMessages(int scenarioIndex) {
@@ -91,6 +92,21 @@ public class TextPanel extends JPanel {
             cursorTimer.start();
         } else {
             System.out.println("エラー: 指定されたシナリオ番号 " + scenarioIndex + " にはメッセージが存在しません。");
+            closePanel(); // メッセージがない場合はパネルを閉じます
+        }
+    }
+
+    public void showMessage2(String[] messages) {
+        this.currentMessages = messages;
+        this.currentIndex = 0;
+
+        if (this.currentMessages != null && this.currentMessages.length > 0) {
+            textLabel.setText(this.currentMessages[currentIndex]);
+            setVisible(true);
+
+            // パネルが表示されたらアニメーション開始
+            cursorTimer.start();
+        } else {
             closePanel(); // メッセージがない場合はパネルを閉じます
         }
     }
@@ -112,19 +128,19 @@ public class TextPanel extends JPanel {
         // パネルが閉じたらアニメーション停止
         cursorTimer.stop();
     }
-    
+
     // 【補足】もし背景透過バグ（色が濃くなる）が再発した場合は、
     // 以下の paintComponent メソッドを有効にしてください。
     /*
-    @Override
-    protected void paintComponent(Graphics g) {
-        // 親クラスの処理を呼ぶことで背景を初期化します。
-        // setOpaque(true) の場合のみ必要です。
-        // super.paintComponent(g); 
-
-        // 背景色を指定
-        g.setColor(getBackground());
-        g.fillRect(0, 0, getWidth(), getHeight());
-    }
-    */
+     * @Override
+     * protected void paintComponent(Graphics g) {
+     * // 親クラスの処理を呼ぶことで背景を初期化します。
+     * // setOpaque(true) の場合のみ必要です。
+     * // super.paintComponent(g);
+     * 
+     * // 背景色を指定
+     * g.setColor(getBackground());
+     * g.fillRect(0, 0, getWidth(), getHeight());
+     * }
+     */
 }
