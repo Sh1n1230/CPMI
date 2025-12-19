@@ -1,21 +1,39 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
 
 public class ScenePanel extends JPanel {
     private Image backgroundImage;
     private MainViewPanel mainViewPanel;
+    private List<HitDetectionArea> hitDetectionAreas = new ArrayList<>();
 
     /**
-     * シーンを更新する
+     * シーンを生成する
      * 
-     * @param imagePath     画像のパス
-     * @param mainViewPanel MainViewPanel
+     * @param imagePath 画像のパス(ex."images/Scene/scene1.png")
      */
     public ScenePanel(String imagePath, MainViewPanel mainViewPanel) {
         this.mainViewPanel = mainViewPanel;
         this.setLayout(null); // 自由配置可能
         changeImage(imagePath);
         setupNavButtons();
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                checkClick(e.getX(), e.getY());
+            }
+        });
+    }
+
+    /**
+     * シーンに当たり判定を追加する
+     */
+    public void addHitDetectionArea(HitDetectionArea hitDetectionArea) {
+        hitDetectionAreas.add(hitDetectionArea);
     }
 
     private void setupNavButtons() {
@@ -37,6 +55,15 @@ public class ScenePanel extends JPanel {
                 rightBtn.setBounds(w - 80, (h - 100) / 2, 60, 100);
             }
         });
+    }
+
+    private void checkClick(int x, int y) {
+        for (HitDetectionArea hitDetectionArea : hitDetectionAreas) {
+            if (hitDetectionArea.contains(x, y)) {
+                hitDetectionArea.onClick();
+                break;
+            }
+        }
     }
 
     /**
@@ -64,6 +91,13 @@ public class ScenePanel extends JPanel {
             g.fillRect(0, 0, getWidth(), getHeight());
             g.setColor(Color.WHITE);
             g.drawString("画像が見つかっていません", 50, 50);
+        }
+
+        g.setColor(Color.RED);
+        for (HitDetectionArea area : hitDetectionAreas) {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(2));
+            g2.draw(area.getBounds());
         }
     }
 }
