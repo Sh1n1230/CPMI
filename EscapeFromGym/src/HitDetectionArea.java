@@ -7,6 +7,12 @@ public class HitDetectionArea {
 
     /**
      * itemの当たり判定生成コンストラクタ
+     * nameはitemDataから直接取得
+     * 
+     * @param x 左上のx
+     * @param y 左上のy
+     * @param w 幅
+     * @param h 高さ
      */
     public HitDetectionArea(ItemData itemData, int x, int y, int w, int h) {
         this.itemData = itemData;
@@ -28,5 +34,17 @@ public class HitDetectionArea {
      */
     public boolean contains(int x, int y) {
         return bounds.contains(x, y);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ItemData getItemData() {
+        return itemData;
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
     }
 }
