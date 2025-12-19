@@ -8,7 +8,7 @@ public class HitDetectionArea {
     private ItemData itemData;
     private Rectangle bounds;
 
-    private ActionOnClick gameActionOnClick;
+    private IActionOnClick gameActionOnClick;
 
     /**
      * itemの当たり判定生成コンストラクタ
@@ -21,7 +21,7 @@ public class HitDetectionArea {
      * @param lowerRightY 右下のy
      */
     public HitDetectionArea(ItemData itemData, int upperLeftX, int upperLeftY, int lowerRightX, int lowerRightY,
-            ActionOnClick gameActionOnClick) {
+            IActionOnClick gameActionOnClick) {
         this.itemData = itemData;
         this.bounds = new Rectangle(upperLeftX, upperLeftY, lowerRightX - upperLeftX, lowerRightY - upperLeftY);
         name = itemData.getName();
@@ -38,7 +38,7 @@ public class HitDetectionArea {
      * @param lowerRightY 右下のy
      */
     public HitDetectionArea(String name, int upperLeftX, int upperLeftY, int lowerRightX, int lowerRightY,
-            ActionOnClick gameActionOnClick) {
+            IActionOnClick gameActionOnClick) {
         this.name = name;
         this.itemData = null;
         this.bounds = new Rectangle(upperLeftX, upperLeftY, lowerRightX - upperLeftX, lowerRightY - upperLeftY);

@@ -1,8 +1,8 @@
-public class OnClickLogic {
+public class OnClickLogics {
     private MainViewPanel mainViewPanel;
     private TextPanel textPanel;
 
-    public OnClickLogic(MainViewPanel mainViewPanel, TextPanel textPanel) {
+    public OnClickLogics(MainViewPanel mainViewPanel, TextPanel textPanel) {
         this.mainViewPanel = mainViewPanel;
         this.textPanel = textPanel;
     }

@@ -1,10 +1,10 @@
 public class Scenes {
     private MainViewPanel mainViewPanel;
-    private OnClickLogic logic;
+    private OnClickLogics logic;
 
     public Scenes(MainViewPanel mainViewPanel, TextPanel textPanel) {
         this.mainViewPanel = mainViewPanel;
-        this.logic = new OnClickLogic(mainViewPanel, textPanel);
+        this.logic = new OnClickLogics(mainViewPanel, textPanel);
         initScenes();
     }
 
