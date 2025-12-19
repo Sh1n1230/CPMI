@@ -5,10 +5,8 @@ public class MainViewPanel extends JPanel {
     private CardLayout sceneLayout;
     private JPanel sceneContainer;
     private Scenes scenes;
+    private TextPanel textPanel;
 
-    /**
-     * 
-     */
     public MainViewPanel() {
         setLayout(new BorderLayout());
 
@@ -16,7 +14,10 @@ public class MainViewPanel extends JPanel {
         sceneContainer = new JPanel(sceneLayout);
         add(sceneContainer, BorderLayout.CENTER);
 
-        scenes = new Scenes(this);
+        textPanel = new TextPanel();
+        add(textPanel, BorderLayout.SOUTH);
+
+        scenes = new Scenes(this, textPanel);
     }
 
     /**

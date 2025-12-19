@@ -58,11 +58,10 @@ public class ScenePanel extends JPanel {
     }
 
     private void checkClick(int x, int y) {
-        for (HitDetectionArea area : hitDetectionAreas) {
-            if (area.contains(x, y)) {
-                // ヒットした場合の処理
-                System.out.println("ヒット: " + area.getName());
-                break; // 重なりがなければ、見つかった時点でループを抜ける
+        for (HitDetectionArea hitDetectionArea : hitDetectionAreas) {
+            if (hitDetectionArea.contains(x, y)) {
+                hitDetectionArea.onClick();
+                break;
             }
         }
     }
