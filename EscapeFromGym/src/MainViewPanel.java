@@ -1,23 +1,44 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class MainViewPanel extends JPanel {
     private CardLayout sceneLayout;
     private JPanel sceneContainer;
     private Scenes scenes;
     private TextPanel textPanel;
+    private JLayeredPane layeredPane;
 
     public MainViewPanel() {
         setLayout(new BorderLayout());
 
+        layeredPane = new JLayeredPane();
+        add(layeredPane, BorderLayout.CENTER);
+
         sceneLayout = new CardLayout();
         sceneContainer = new JPanel(sceneLayout);
-        add(sceneContainer, BorderLayout.CENTER);
 
         textPanel = new TextPanel();
-        add(textPanel, BorderLayout.SOUTH);
+        layeredPane.add(sceneContainer, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(textPanel, JLayeredPane.PALETTE_LAYER);
 
         scenes = new Scenes(this, textPanel);
+
+        layeredPane.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int width = layeredPane.getWidth();
+                int height = layeredPane.getHeight();
+
+                sceneContainer.setBounds(0, 0, width, height);
+
+                int textHeight = 120;
+                textPanel.setBounds(0, height - textHeight, width, textHeight);
+                layeredPane.revalidate();
+                layeredPane.repaint();
+            }
+        });
     }
 
     /**
