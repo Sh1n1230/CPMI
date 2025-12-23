@@ -16,7 +16,7 @@ public class OnClickLogics {
      */
     public void showMessage(String message) {
         String[] msgArray = { message };
-        textPanel.showMessage2(msgArray);
+        textPanel.showMessages(msgArray);
     }
 
     /*

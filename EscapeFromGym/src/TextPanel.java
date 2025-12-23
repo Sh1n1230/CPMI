@@ -59,7 +59,12 @@ public class TextPanel extends JPanel {
         });
     }
 
-    public void showMessages(int scenarioIndex) {
+    /**
+     * シナリオのメッセージを引数でシナリオ番号を受け取り表示する
+     * 
+     * @param scenarioIndex シナリオ番号
+     */
+    public void showScenarioMessages(int scenarioIndex) {
         this.currentMessages = EventText.getScenarioMessages(scenarioIndex);
         this.currentIndex = 0;
 
@@ -74,7 +79,12 @@ public class TextPanel extends JPanel {
         }
     }
 
-    public void showMessage2(String[] messages) {
+    /**
+     * メッセージを引数で受け取り表示する
+     * 
+     * @param messages 表示したいメッセージの配列
+     */
+    public void showMessages(String[] messages) {
         this.currentMessages = messages;
         this.currentIndex = 0;
 
