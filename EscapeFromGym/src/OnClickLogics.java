@@ -7,15 +7,21 @@ public class OnClickLogics {
         this.textPanel = textPanel;
     }
 
-    // クリックした際の挙動を以下の関数で定義する
+    /*
+     * クリックした際の挙動を以下の関数で定義する
+     */
 
-    // 1行メッセージ表示
+    /*
+     * 1行メッセージ表示
+     */
     public void showMessage(String message) {
         String[] msgArray = { message };
         textPanel.showMessage2(msgArray);
     }
 
-    // アイテム獲得
+    /*
+     * アイテム獲得
+     */
     public void acquireItem(ItemData item) {
         showMessage(item.getName() + " を取得した。");
     }

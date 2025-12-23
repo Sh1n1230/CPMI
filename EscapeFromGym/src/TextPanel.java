@@ -11,18 +11,13 @@ public class TextPanel extends JPanel {
     private JLabel cornerLabel;
     private Timer cursorTimer;
     private boolean isCursorDown = false;
-
     private String[] currentMessages;
     private int currentIndex;
-
-    // 追加: MainViewPanelへの参照を保持するフィールド
     private MainViewPanel mainViewPanel;
 
-    // 変更: コンストラクタでMainViewPanelを受け取る
     public TextPanel(MainViewPanel mainViewPanel) {
-        this.mainViewPanel = mainViewPanel; // 参照を保持
+        this.mainViewPanel = mainViewPanel;
 
-        // パネルの見た目設定
         setPreferredSize(new Dimension(800, 120));
 
         setBackground(new Color(10, 0, 0));
@@ -30,23 +25,20 @@ public class TextPanel extends JPanel {
         setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
         setVisible(false);
 
-        // 1. 中央のメインテキスト設定
         textLabel = new JLabel();
         textLabel.setForeground(Color.WHITE);
-        textLabel.setFont(new Font("MS Gothic", Font.BOLD, 18));
+        textLabel.setFont(new Font(Font.SERIF, Font.PLAIN, 18));
         textLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         textLabel.setVerticalAlignment(JLabel.TOP);
         add(textLabel, BorderLayout.CENTER);
 
-        // 2. 右下の固定文字ラベル設定
-        cornerLabel = new JLabel("Click here💪");
+        cornerLabel = new JLabel("▼");
         cornerLabel.setForeground(Color.WHITE);
-        cornerLabel.setFont(new Font("MS Gothic", Font.PLAIN, 24));
+        cornerLabel.setFont(new Font("MS Gothic", Font.PLAIN, 12));
         cornerLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         cornerLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 15));
         add(cornerLabel, BorderLayout.SOUTH);
 
-        // 3. アニメーション用タイマーの作成
         cursorTimer = new Timer(500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,8 +65,6 @@ public class TextPanel extends JPanel {
 
         if (this.currentMessages != null && this.currentMessages.length > 0) {
             textLabel.setText(this.currentMessages[currentIndex]);
-            // 変更: MainViewPanel経由で表示を切り替える
-            // setVisible(true);
             mainViewPanel.setTextPanelVisible(true);
 
             cursorTimer.start();
@@ -90,8 +80,6 @@ public class TextPanel extends JPanel {
 
         if (this.currentMessages != null && this.currentMessages.length > 0) {
             textLabel.setText(this.currentMessages[currentIndex]);
-            // 変更: MainViewPanel経由で表示を切り替える
-            // setVisible(true);
             mainViewPanel.setTextPanelVisible(true);
 
             cursorTimer.start();
@@ -110,8 +98,6 @@ public class TextPanel extends JPanel {
     }
 
     private void closePanel() {
-        // 変更: MainViewPanel経由で非表示にする
-        // setVisible(false);
         mainViewPanel.setTextPanelVisible(false);
 
         textLabel.setText("");
