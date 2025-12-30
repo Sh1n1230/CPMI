@@ -69,7 +69,7 @@ public class TextPanel extends JPanel {
         this.currentIndex = 0;
 
         if (this.currentMessages != null && this.currentMessages.length > 0) {
-            textLabel.setText(this.currentMessages[currentIndex]);
+            textLabel.setText(textToHTML(this.currentMessages[currentIndex]));
             mainViewPanel.setTextPanelVisible(true);
 
             cursorTimer.start();
@@ -89,7 +89,7 @@ public class TextPanel extends JPanel {
         this.currentIndex = 0;
 
         if (this.currentMessages != null && this.currentMessages.length > 0) {
-            textLabel.setText(this.currentMessages[currentIndex]);
+            textLabel.setText(textToHTML(this.currentMessages[currentIndex]));
             mainViewPanel.setTextPanelVisible(true);
 
             cursorTimer.start();
@@ -101,7 +101,7 @@ public class TextPanel extends JPanel {
     private void nextMessage() {
         currentIndex++;
         if (currentMessages != null && currentIndex < currentMessages.length) {
-            textLabel.setText(currentMessages[currentIndex]);
+            textLabel.setText(textToHTML(currentMessages[currentIndex]));
         } else {
             closePanel();
         }
@@ -112,5 +112,30 @@ public class TextPanel extends JPanel {
 
         textLabel.setText("");
         cursorTimer.stop();
+    }
+
+    /**
+     * 文字列を独自のタグを用いてHTMLに変換する
+     */
+    private String textToHTML(String text) {
+        if (text == null)
+            return "";
+
+        // 改行コードをHTMLの<br>に変換
+        String formatted = text.replace("\n", "<br>");
+
+        // 文字の色を赤にする変換
+        formatted = formatted.replaceAll("\\[red\\]", "<font color='red'>");
+        formatted = formatted.replaceAll("\\[/red\\]", "</font>");
+
+        // 文字を大きくする変換
+        formatted = formatted.replaceAll("\\[big\\]", "<font size='8'>");
+        formatted = formatted.replaceAll("\\[/big\\]", "</font>");
+
+        // 文字を太くする変換
+        formatted = formatted.replaceAll("\\[b\\]", "<b>");
+        formatted = formatted.replaceAll("\\[/b\\]", "</b>");
+
+        return "<html>" + formatted + "</html>";
     }
 }
