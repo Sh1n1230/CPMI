@@ -1,68 +1,62 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class InventoryUI extends JFrame {
+public class InventoryUI extends JPanel {
 
     /* インベントリのインスタンス */
     public InventoryUI() {
-        setTitle("インベントリ"); // ウィンドウの名前
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 罰押したら消える
-        setSize(800, 600);// ウィンドウの大きさ
-        setLocationRelativeTo(null);//
+        // --- データ管理クラスの準備 ---
+        InventoryManage inventory = new InventoryManage();
+
+        // 動作確認用：いくつかアイテムを追加してみる
+        // (本来はゲームの進行状況から読み込みますが、ここではテスト用に作成します)
+        inventory.addItem(new ItemData("剣", "鉄の剣", null, null));
+        inventory.addItem(new ItemData("薬草", "HP回復", null, null));
+        inventory.addItem(new ItemData("盾", "木の盾", null, null));
+        // ---------------------------
 
         JPanel mainPanel = new JPanel(new GridLayout(1, 2));// ２行１列
 
         JPanel leftPanel = new JPanel(new BorderLayout());// 左側から
         leftPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        /* ステータスのパネルを作る */
-        JPanel statusPanel = new JPanel();
-        statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
-        statusPanel.setPreferredSize(new Dimension(200, 300));
-        statusPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        /* PlayerPanelとPlayerStatusの作成・設定 */
+        PlayerStatus playerStatus = new PlayerStatus();
+        playerStatus.setShoulderVal(true);
+        playerStatus.setChestVal(true);
+        playerStatus.setArmVal(false);
+        playerStatus.setBackVal(true);
+        playerStatus.setLegVal(false);
 
-        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
-        Font fontName = new Font(Font.SANS_SERIF, Font.BOLD, 20);
-
-        JLabel nameLabel = new JLabel("勇者");
-        nameLabel.setFont(fontName);
-        JLabel hpLabel = new JLabel("HP: 100/100");
-        hpLabel.setFont(font);
-        JLabel mpLabel = new JLabel("MP: 50/50");
-        mpLabel.setFont(font);
-        JLabel atkLabel = new JLabel("攻撃力: 25");
-        atkLabel.setFont(font);
-
-        statusPanel.add(nameLabel);
-        statusPanel.add(Box.createVerticalStrut(10));
-        statusPanel.add(hpLabel);
-        statusPanel.add(Box.createVerticalStrut(10));
-        statusPanel.add(mpLabel);
-        statusPanel.add(Box.createVerticalStrut(10));
-        statusPanel.add(atkLabel);
+        // ステータス表示パネルの作成と更新
+        PlayerPanel playerPanel = new PlayerPanel();
+        playerPanel.setPreferredSize(new Dimension(200, 300)); // サイズ維持
+        playerPanel.updateView(playerStatus);
 
         /* 戻るボタンを作る */
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 50));
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0)); // パネルとの間隔
         JButton backButton = new JButton("戻る");
         backButton.setPreferredSize(new Dimension(100, 40));
+        backButton.addActionListener(null);
         buttonPanel.add(backButton);
 
-        /* ステータスと戻るボタンを左側のパネルに統合 */
-        leftPanel.add(statusPanel, BorderLayout.NORTH);
+        /* PlayerPanelと戻るボタンを左側のパネルに統合 */
+        leftPanel.add(playerPanel, BorderLayout.CENTER);
         leftPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         /* 右側のパネルを作る */
         JPanel rightPanel = new JPanel(new GridLayout(3, 3, 10, 10));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        /* パネルにアイテム名とボックスを作る */
+        /* パネルにItemAccを使ってアイテムボックスを作る */
+        // InventoryManageのcapacity(9)に合わせてループ
         for (int i = 0; i < 9; i++) {
-            JPanel slot = new JPanel(new BorderLayout());
-            slot.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-            slot.setBackground(Color.LIGHT_GRAY);
+            // InventoryManageから i番目のデータを取得
+            ItemData itemData = inventory.getItem(i);
 
-            JLabel itemLabel = new JLabel("アイテム " + (i + 1), SwingConstants.CENTER);
-            slot.add(itemLabel, BorderLayout.SOUTH);
+            // ItemAccを作成 (データがnullなら空欄として表示される)
+            ItemAcc slot = new ItemAcc(itemData);
 
             rightPanel.add(slot);
         }
@@ -76,7 +70,11 @@ public class InventoryUI extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new InventoryUI().setVisible(true);
+            JFrame frame = new JFrame("Inventory");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.add(new InventoryUI());
+            frame.pack();
+            frame.setVisible(true);
         });
     }
 }
