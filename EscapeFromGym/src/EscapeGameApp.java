@@ -16,6 +16,8 @@ public class EscapeGameApp extends JFrame {
         // 仮インベントリボタン
         JButton inventoryButton = new JButton("Inventory");
         add(inventoryButton, BorderLayout.NORTH);
+
+        GameProgress.getInstance().StartGame();
     }
 
     public static void main(String[] args) {

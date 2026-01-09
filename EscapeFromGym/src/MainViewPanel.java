@@ -11,6 +11,7 @@ public class MainViewPanel extends JPanel {
     private TextPanel textPanel;
     private JPanel grayScale;
     private JLayeredPane layeredPane;
+    private GameProgress gameProgress;
 
     public MainViewPanel() {
         setLayout(new BorderLayout());
@@ -44,6 +45,9 @@ public class MainViewPanel extends JPanel {
         layeredPane.add(textPanel, JLayeredPane.MODAL_LAYER);
 
         scenes = new Scenes(this, textPanel);
+
+        gameProgress = GameProgress.getInstance();
+        gameProgress.setTextPanel(textPanel);
 
         layeredPane.addComponentListener(new ComponentAdapter() {
             @Override
