@@ -1,10 +1,12 @@
+import javax.swing.*;
+
 public class ItemData {
     private String name;
     private String description;
-    private String image3D;
-    private String icon;
+    private ImageIcon image3D;
+    private ImageIcon icon;
 
-    public ItemData(String name, String description, String image3D, String icon) {
+    public ItemData(String name, String description, ImageIcon image3D, ImageIcon icon) {
         this.name = name;
         this.description = description;
         this.image3D = image3D;
@@ -19,11 +21,11 @@ public class ItemData {
         return description;
     }
 
-    public String getImage3D() {
+    public ImageIcon getImage3D() {
         return image3D;
     }
 
-    public String getIcon() {
+    public ImageIcon getIcon() {
         return icon;
     }
 }
