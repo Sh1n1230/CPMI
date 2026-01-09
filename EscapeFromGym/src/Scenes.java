@@ -17,7 +17,7 @@ public class Scenes {
                 new HitDetectionArea("インクラインベンチ", 100, 100, 700, 500,
                         () -> logic.showMessage("[big][red]インクラインベンチ[/big][/red]がある。")));
 
-        ItemData key = new ItemData("鍵", "どこかを開けられる気がする。", null, null);
+        ItemData key = new ItemData("スマートフォン", null, "images/Item3D/smartphone.png", null);
         scene1.addHitDetectionArea(new HitDetectionArea(key, 300, 400, 350, 450, () -> logic.acquireItem(key)));
 
         mainViewPanel.addScene(scene1, "InclineBenchScene");
