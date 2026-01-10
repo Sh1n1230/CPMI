@@ -29,8 +29,12 @@ public class ItemAcc extends JPanel {
                 // 例：System.out.println("クリックされたよ！");
 
                 // ItemUseWindowを表示
+                if (item == null) {
+                    return;
+                }
                 ItemUseWindow useWindow = new ItemUseWindow(item);
-                // ヒント：ItemAccは自分が何のItemDataを持っているか知っているので、
+                // ヒント：ItemAccは自分が
+                // 何のItemDataを持っているか知っているので、
                 // その名前を表示したりできます。
             }
         });
