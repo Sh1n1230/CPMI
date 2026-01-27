@@ -17,9 +17,17 @@ public class Scenes {
                 new HitDetectionArea("インクラインベンチ", 100, 100, 700, 500,
                         () -> logic.showMessage("[big][red]インクラインベンチ[/big][/red]がある。")));
 
-        ItemData key = new ItemData("鍵", "どこかを開けられる気がする。", null, null);
-        scene1.addHitDetectionArea(new HitDetectionArea(key, 300, 400, 350, 450, () -> logic.acquireItem(key)));
-
         mainViewPanel.addScene(scene1, "InclineBenchScene");
+
+        ScenePanel scene2 = new ScenePanel("images/Scene/scene2.png", mainViewPanel);
+        ItemData smartPhone = new ItemData("スマートフォン", null, "images/Item3D/SmartPhone.png", null);
+        scene2.addHitDetectionArea(
+                new HitDetectionArea(smartPhone, 100, 100, 700, 500,
+                        () -> {
+                            logic.Progress();
+                            scene2.removeHitDetectionAreaByName(smartPhone.getName());
+                        }));
+
+        mainViewPanel.addScene(scene2, "Scene2");
     }
 }

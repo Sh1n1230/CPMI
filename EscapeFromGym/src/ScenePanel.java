@@ -81,9 +81,29 @@ public class ScenePanel extends JPanel {
         repaint();
     }
 
+    /**
+     * 名前を引数にして当たり判定を削除する
+     * 
+     * @param name 消したいItemDataの名前
+     */
+    public void removeHitDetectionAreaByName(String name) {
+        hitDetectionAreas.removeIf(area -> area.getName().equals(name));
+        repaint();
+    }
+
+    /**
+     * 直接オブジェクトを指定して削除する
+     */
+    public void removeHitDetectionArea(HitDetectionArea targetArea) {
+        hitDetectionAreas.remove(targetArea);
+        repaint();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        // 背景描画
         if (backgroundImage != null) {
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         } else {
@@ -93,8 +113,20 @@ public class ScenePanel extends JPanel {
             g.drawString("画像が見つかっていません", 50, 50);
         }
 
-        g.setColor(Color.RED);
+        // 当たり判定領域の描画ループ
         for (HitDetectionArea area : hitDetectionAreas) {
+            // アイテムデータと3D画像パスがある場合、その範囲に画像を描画する
+            if (area.getItemData() != null && area.getItemData().getImage3D() != null) {
+                ImageIcon itemIcon = new ImageIcon(area.getItemData().getImage3D());
+                if (itemIcon.getImageLoadStatus() == MediaTracker.COMPLETE) {
+                    g.drawImage(itemIcon.getImage(),
+                            area.getBounds().x, area.getBounds().y,
+                            area.getBounds().width, area.getBounds().height, this);
+                }
+            }
+
+            // デバッグ用
+            g.setColor(Color.RED);
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(new BasicStroke(2));
             g2.draw(area.getBounds());

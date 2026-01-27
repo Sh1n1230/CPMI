@@ -1,12 +1,10 @@
-import javax.swing.*;
-
 public class ItemData {
     private String name;
     private String description;
-    private ImageIcon image3D;
-    private ImageIcon icon;
+    private String image3D; // 3D画像のパス
+    private String icon; // アイコン画像のパス
 
-    public ItemData(String name, String description, ImageIcon image3D, ImageIcon icon) {
+    public ItemData(String name, String description, String image3D, String icon) {
         this.name = name;
         this.description = description;
         this.image3D = image3D;
@@ -21,11 +19,11 @@ public class ItemData {
         return description;
     }
 
-    public ImageIcon getImage3D() {
+    public String getImage3D() {
         return image3D;
     }
 
-    public ImageIcon getIcon() {
+    public String getIcon() {
         return icon;
     }
 }

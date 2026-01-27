@@ -24,5 +24,13 @@ public class OnClickLogics {
      */
     public void acquireItem(ItemData item) {
         showMessage(item.getName() + " を取得した。");
+
+    }
+
+    /*
+     * ゲーム進行
+     */
+    public void Progress() {
+        GameProgress.getInstance().IncrementProgress();
     }
 }
